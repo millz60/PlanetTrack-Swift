@@ -598,14 +598,6 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Earth to Jupiter" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wg8-oY-CBM">
-                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="47"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <size key="shadowOffset" width="1" height="1"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="79d-gP-gK9">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <constraints>
@@ -613,7 +605,7 @@
                                     <constraint firstAttribute="width" constant="300" id="kcd-SQ-NCZ"/>
                                     <constraint firstAttribute="height" constant="300" id="nTl-UA-IBZ"/>
                                 </constraints>
-                                <state key="normal" title="Earth" image="earth"/>
+                                <state key="normal" title="Sun" image="sun"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="4oc-hK-nSN"/>
@@ -639,7 +631,7 @@
                                     <constraint firstAttribute="width" constant="300" id="2c3-ai-rvm"/>
                                     <constraint firstAttribute="height" constant="300" id="mSS-6J-LId"/>
                                 </constraints>
-                                <state key="normal" title="Jupiter" image="jupiter"/>
+                                <state key="normal" title="Mercury" image="mercury"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="0QE-5a-tUI"/>
@@ -716,6 +708,14 @@
                                     <action selector="planetChosen:" destination="RTX-92-3SM" eventType="touchUpInside" id="Xgu-KV-uAZ"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Earth to Jupiter" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wg8-oY-CBM">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="47"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <size key="shadowOffset" width="1" height="1"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -747,12 +747,12 @@
                             <mask key="subviews">
                                 <exclude reference="tu6-wA-JAu"/>
                                 <exclude reference="PHA-Iz-6Wr"/>
-                                <exclude reference="wg8-oY-CBM"/>
                                 <exclude reference="79d-gP-gK9"/>
                                 <exclude reference="PxV-N0-Wek"/>
                                 <exclude reference="It3-qF-NdX"/>
                                 <exclude reference="W8y-gE-crV"/>
                                 <exclude reference="SRt-9J-F3h"/>
+                                <exclude reference="wg8-oY-CBM"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="Fkp-Gs-p7p"/>
@@ -780,12 +780,12 @@
                             <mask key="subviews">
                                 <include reference="tu6-wA-JAu"/>
                                 <include reference="PHA-Iz-6Wr"/>
-                                <include reference="wg8-oY-CBM"/>
                                 <include reference="79d-gP-gK9"/>
                                 <include reference="PxV-N0-Wek"/>
                                 <include reference="It3-qF-NdX"/>
                                 <include reference="W8y-gE-crV"/>
                                 <include reference="SRt-9J-F3h"/>
+                                <include reference="wg8-oY-CBM"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="Fkp-Gs-p7p"/>
@@ -967,7 +967,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WI7-1g-gFZ">
                                 <rect key="frame" x="551" y="212" width="665" height="42"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gmX-Ge-hBR">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gmX-Ge-hBR">
                                         <rect key="frame" x="0.0" y="0.0" width="158" height="42"/>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="25"/>
                                         <size key="titleShadowOffset" width="1" height="1"/>
@@ -979,7 +979,7 @@
                                             <segue destination="d6P-Vo-B2m" kind="show" identifier="PlanetTrackSegue" id="iaw-SC-zpr"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RET-bp-gd1">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RET-bp-gd1">
                                         <rect key="frame" x="158" y="0.0" width="235" height="42"/>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="25"/>
                                         <state key="normal" title="Solar System Facts  &gt;">
@@ -989,7 +989,7 @@
                                             <segue destination="d6P-Vo-B2m" kind="show" identifier="SolarSystemFactsSegue" id="iod-1e-4hf"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gwl-ci-mVa">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gwl-ci-mVa">
                                         <rect key="frame" x="393" y="0.0" width="178" height="42"/>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="25"/>
                                         <state key="normal" title="Image Gallery  &gt;">
@@ -999,7 +999,7 @@
                                             <segue destination="d6P-Vo-B2m" kind="show" identifier="ImageGallerySegue" id="DUy-CN-O83"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGC-WB-s8o">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGC-WB-s8o">
                                         <rect key="frame" x="571" y="0.0" width="94" height="42"/>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="25"/>
                                         <state key="normal" title="About  &gt;">

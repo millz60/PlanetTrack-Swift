@@ -28,28 +28,101 @@ class PlanetTrackViewController: UIViewController {
     var leftPlanet:  String!
     var rightPlanet: String?
     var leftSelected = true
-    var selectedPlanet: String!
     
+    var ratePerHalfSecond: Double!
+    
+    var selectedPlanet: String!
+    var selectedPlanetData: NSDictionary!
+    
+    var sunToMercuryData: NSDictionary!
+    var sunToVenusData: NSDictionary!
+    var sunToEarthData: NSDictionary!
+    var sunToMarsData: NSDictionary!
+    var sunToJupiterData: NSDictionary!
+    var sunToSaturnData: NSDictionary!
+    var sunToUranusData: NSDictionary!
+    var sunToNeptuneData: NSDictionary!
+    
+    var mercuryToVenusData: NSDictionary!
+    var mercuryToEarthData: NSDictionary!
+    var mercuryToMarsData: NSDictionary!
+    var mercuryToJupiterData: NSDictionary!
+    var mercuryToSaturnData: NSDictionary!
+    var mercuryToUranusData: NSDictionary!
+    var mercuryToNeptuneData: NSDictionary!
+    
+    var venusToEarthData: NSDictionary!
+    var venusToMarsData: NSDictionary!
+    var venusToJupiterData: NSDictionary!
+    var venusToSaturnData: NSDictionary!
+    var venusToUranusData: NSDictionary!
+    var venusToNeptuneData: NSDictionary!
+    
+    var earthToMarsData: NSDictionary!
+    var earthToJupiterData: NSDictionary!
+    var earthToSaturnData: NSDictionary!
+    var earthToUranusData: NSDictionary!
+    var earthToNeptuneData: NSDictionary!
+    
+    var marsToJupiterData: NSDictionary!
+    var marsToSaturnData: NSDictionary!
+    var marsToUranusData: NSDictionary!
+    var marsToNeptuneData: NSDictionary!
+    
+    var jupiterToSaturnData: NSDictionary!
+    var jupiterToUranusData: NSDictionary!
+    var jupiterToNeptuneData: NSDictionary!
+    
+    var saturnToUranusData: NSDictionary!
+    var saturnToNeptuneData: NSDictionary!
+    
+    var uranusToNeptuneData: NSDictionary!
 
+
+    // Begin Code
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = "PlanetTrack"
+        self.planetsDisplayText.text = "Sun to Mercury"
+        
+        downloadPlanetData()
+        
+        sunToMercuryData = NSDictionary(); sunToVenusData = NSDictionary(); sunToEarthData = NSDictionary(); sunToMarsData = NSDictionary(); sunToJupiterData = NSDictionary();
+        sunToSaturnData = NSDictionary(); sunToUranusData = NSDictionary(); sunToNeptuneData = NSDictionary();
+        
+        mercuryToVenusData = NSDictionary(); mercuryToEarthData = NSDictionary(); mercuryToMarsData = NSDictionary(); mercuryToJupiterData = NSDictionary(); mercuryToSaturnData = NSDictionary();
+        mercuryToUranusData = NSDictionary(); mercuryToNeptuneData = NSDictionary()
+        
+        venusToEarthData = NSDictionary(); venusToMarsData = NSDictionary(); venusToJupiterData = NSDictionary(); venusToSaturnData = NSDictionary(); venusToUranusData = NSDictionary();
+        venusToNeptuneData = NSDictionary()
+        
+        earthToMarsData = NSDictionary(); earthToJupiterData = NSDictionary(); earthToSaturnData = NSDictionary(); earthToUranusData = NSDictionary(); earthToNeptuneData = NSDictionary();
+        
+        marsToJupiterData = NSDictionary(); marsToSaturnData = NSDictionary(); marsToUranusData = NSDictionary(); marsToNeptuneData = NSDictionary();
+        
+        jupiterToSaturnData = NSDictionary(); jupiterToUranusData = NSDictionary(); jupiterToNeptuneData = NSDictionary();
+        
+        saturnToUranusData = NSDictionary(); saturnToNeptuneData = NSDictionary();
+        
+        uranusToNeptuneData = NSDictionary();
+        
+        
+
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func leftPlanetSelected() {
     
         self.leftSelected = true
 
-//        self.planetsDisplayText.text = "\(self.leftPlanet.capitalizedString) to \(self.rightPlanet?.capitalizedString)"
     }
     
-    // self.leftSelectedPlanet.setImage(UIImage(named: "neptune")!, forState: .Normal)
     
     @IBAction func rightPlanetSelected() {
      
@@ -63,12 +136,19 @@ class PlanetTrackViewController: UIViewController {
         
         let planetSent = sender as! UIButton
         
+        // Set the selectedPlanetData var to equal the selected planets
+        
+        
         if(self.leftSelected){
-            
             
             self.leftSelectedPlanet.setImage(UIImage(named: planetSent.titleLabel!.text!.lowercaseString), forState: .Normal)
             self.leftSelectedPlanet.setTitle(planetSent.titleLabel!.text!, forState: .Normal)
             self.planetsDisplayText.text = "\(leftSelectedPlanet.titleLabel!.text!) to \(rightSelectedPlanet.titleLabel!.text!)"
+            
+            // Create an array containing all planetToPlanetData and use the text to access it and store it as selectedPlanetData
+            
+            
+//            self.selectedPlanetData =
             
         } else {
             
@@ -106,6 +186,253 @@ class PlanetTrackViewController: UIViewController {
         }
         
     }
+    
+    private func downloadPlanetData() {
+        
+        let planetDataString = "https://dl.dropboxusercontent.com/s/w2gga9nsf7fkwby/document%20%284%29.json?dl=0"
+        
+        guard let url = NSURL(string: planetDataString) else { fatalError("Invalid URL") }
+        
+        let session = NSURLSession.sharedSession()
+        
+        session.dataTaskWithURL(url) { (data: NSData?, response: NSURLResponse?, error: NSError?) in
+            
+            
+            let planetData = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) as! NSMutableDictionary
+            
+            let sunToMercury = planetData.valueForKeyPath("Sun.Mercury") as! NSDictionary
+            let sunToVenus = planetData.valueForKeyPath("Sun.Venus") as! NSDictionary
+            let sunToEarth = planetData.valueForKeyPath("Sun.Earth") as! NSDictionary
+            let sunToMars = planetData.valueForKeyPath("Sun.Mars") as! NSDictionary
+            let sunToJupiter = planetData.valueForKeyPath("Sun.Jupiter") as! NSDictionary
+            let sunToSaturn = planetData.valueForKeyPath("Sun.Saturn") as! NSDictionary
+            let sunToUranus = planetData.valueForKeyPath("Sun.Uranus") as! NSDictionary
+            let sunToNeptune = planetData.valueForKeyPath("Sun.Neptune") as! NSDictionary
+            
+            self.sunToMercuryData = sunToMercury
+            self.sunToVenusData = sunToVenus
+            self.sunToEarthData = sunToEarth
+            self.sunToMarsData = sunToMars
+            self.sunToJupiterData = sunToJupiter
+            self.sunToSaturnData = sunToSaturn
+            self.sunToUranusData = sunToUranus
+            self.sunToNeptuneData = sunToNeptune
+            
+            let mercuryToVenus = planetData.valueForKeyPath("Mercury.Venus") as! NSDictionary
+            let mercuryToEarth = planetData.valueForKeyPath("Mercury.Earth") as! NSDictionary
+            let mercuryToMars = planetData.valueForKeyPath("Mercury.Mars") as! NSDictionary
+            let mercuryToJupiter = planetData.valueForKeyPath("Mercury.Jupiter") as! NSDictionary
+            let mercuryToSaturn = planetData.valueForKeyPath("Mercury.Saturn") as! NSDictionary
+            let mercuryToUranus = planetData.valueForKeyPath("Mercury.Uranus") as! NSDictionary
+            let mercuryToNeptune = planetData.valueForKeyPath("Mercury.Neptune") as! NSDictionary
+            
+            self.mercuryToVenusData = mercuryToVenus
+            self.mercuryToEarthData = mercuryToEarth
+            self.mercuryToMarsData = mercuryToMars
+            self.mercuryToJupiterData = mercuryToJupiter
+            self.mercuryToSaturnData = mercuryToSaturn
+            self.mercuryToUranusData = mercuryToUranus
+            self.mercuryToNeptuneData = mercuryToNeptune
+            
+            let venusToEarth = planetData.valueForKeyPath("Venus.Earth") as! NSDictionary
+            let venusToMars = planetData.valueForKeyPath("Venus.Mars") as! NSDictionary
+            let venusToJupiter = planetData.valueForKeyPath("Venus.Jupiter") as! NSDictionary
+            let venusToSaturn = planetData.valueForKeyPath("Venus.Saturn") as! NSDictionary
+            let venusToUranus = planetData.valueForKeyPath("Venus.Uranus") as! NSDictionary
+            let venusToNeptune = planetData.valueForKeyPath("Venus.Neptune") as! NSDictionary
+
+            self.venusToEarthData = venusToEarth
+            self.venusToMarsData = venusToMars
+            self.venusToJupiterData = venusToJupiter
+            self.venusToSaturnData = venusToSaturn
+            self.venusToUranusData = venusToUranus
+            self.venusToNeptuneData = venusToNeptune
+            
+            let earthToMars = planetData.valueForKeyPath("Earth.Mars") as! NSDictionary
+            let earthToJupiter = planetData.valueForKeyPath("Earth.Jupiter") as! NSDictionary
+            let earthToSaturn = planetData.valueForKeyPath("Earth.Saturn") as! NSDictionary
+            let earthToUranus = planetData.valueForKeyPath("Earth.Uranus") as! NSDictionary
+            let earthToNeptune = planetData.valueForKeyPath("Earth.Neptune") as! NSDictionary
+            
+            self.earthToMarsData = earthToMars
+            self.earthToJupiterData = earthToJupiter
+            self.earthToSaturnData = earthToSaturn
+            self.earthToUranusData = earthToUranus
+            self.earthToNeptuneData = earthToNeptune
+            
+            let marsToJupiter = planetData.valueForKeyPath("Mars.Jupiter") as! NSDictionary
+            let marsToSaturn = planetData.valueForKeyPath("Mars.Saturn") as! NSDictionary
+            let marsToUranus = planetData.valueForKeyPath("Mars.Uranus") as! NSDictionary
+            let marsToNeptune = planetData.valueForKeyPath("Mars.Neptune") as! NSDictionary
+            
+            self.marsToJupiterData = marsToJupiter
+            self.marsToSaturnData = marsToSaturn
+            self.marsToUranusData = marsToUranus
+            self.marsToNeptuneData = marsToNeptune
+            
+            let jupiterToSaturn = planetData.valueForKeyPath("Jupiter.Saturn") as! NSDictionary
+            let jupiterToUranus = planetData.valueForKeyPath("Jupiter.Uranus") as! NSDictionary
+            let jupiterToNeptune = planetData.valueForKeyPath("Jupiter.Neptune") as! NSDictionary
+            
+            self.jupiterToSaturnData = jupiterToSaturn
+            self.jupiterToUranusData = jupiterToUranus
+            self.jupiterToNeptuneData = jupiterToNeptune
+            
+            let saturnToUranus = planetData.valueForKeyPath("Saturn.Uranus") as! NSDictionary
+            let saturnToNeptune = planetData.valueForKeyPath("Saturn.Neptune") as! NSDictionary
+            
+            self.saturnToUranusData = saturnToUranus
+            self.saturnToNeptuneData = saturnToNeptune
+            
+            let uranusToNeptune = planetData.valueForKeyPath("Uranus.Neptune") as! NSDictionary
+            
+            self.uranusToNeptuneData = uranusToNeptune
+            
+//            print(self.sunToMercuryData)
+            print("Sun to Neptune: \(self.sunToNeptuneData)")
+            print("Uranus to Neptune: \(self.uranusToNeptuneData)")
+            
+            
+            
+            self.updatePlanetDistances()
+            
+
+            dispatch_async(dispatch_get_main_queue(), {
+                self.downloadComplete()
+            })
+            
+            
+            }.resume()
+        
+    }
+    
+    func downloadComplete() {
+        
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(self.distanceUpdate), userInfo:nil,  repeats: true)
+    
+    }
+    
+    private func updatePlanetDistances() {
+        
+        // Steps: 
+        
+        // 1) create a new date object to get the current time
+        
+        // 2) convert date strings from sunToMercuryData into dates
+        
+        // 3) find the date in the dictionary that is the closet to actual date (make sure it is in the past, not future)
+        
+        // 4) get the distance from that date, and then the next date. Then, create an equation to match those 2 values that updates by the second/half-second
+        
+        // 5) update self.distanceLabel.text to reflect the equation
+        
+        // 6) if a new time from the sunToMercury dictionary passes, redo all above steps (Idea: create an animation or label that displays "tracking... or honing in.." while updating)
+        
+        
+        // Steps 1, 2, and 3
+        
+        let currentTime = NSDate()
+        
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.timeZone = NSTimeZone(name: "UTC")
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss.S Z"
+        
+        let sunToMercuryKeys = self.sunToMercuryData.allKeys
+        let sunToMercuryValues = self.sunToMercuryData.allValues
+        
+        let datesArray = NSMutableArray()
+        
+        for date in sunToMercuryKeys {
+            
+            let formattedDate = dateFormatter.dateFromString(String(date))
+            datesArray.addObject(formattedDate!)
+        }
+        
+        var descriptor: NSSortDescriptor = NSSortDescriptor(key: "", ascending: true)
+        var sortedResults: NSArray = datesArray.sortedArrayUsingDescriptors([descriptor])
+
+        let beforeDates = NSMutableArray()
+        let afterDates = NSMutableArray()
+        
+        for date in sortedResults {
+            
+            if date.compare(currentTime) == NSComparisonResult.OrderedDescending
+            {
+                    // After
+                afterDates.addObject(date)
+                
+                
+                
+            } else if date.compare(currentTime) == NSComparisonResult.OrderedAscending
+            {
+                    // Before
+                
+                beforeDates.addObject(date)
+                
+            }
+            
+        }
+        
+//        print(beforeDates)
+//        print(afterDates)
+        
+        // Steps 3 and 4
+        
+        let previousDate = beforeDates.lastObject!
+        let nextDate = afterDates.firstObject!
+        
+        print(previousDate)
+        print(nextDate)
+        
+        let convertedPrevDate = convertToUTC(String(previousDate))
+        let convertedNextDate = convertToUTC(String(nextDate))
+        
+        let previousDateDistance = self.sunToMercuryData.valueForKey(String(convertedPrevDate))
+        let nextDateDistance = self.sunToMercuryData.valueForKey(String(convertedNextDate))
+        
+        print(previousDateDistance!)
+        print(nextDateDistance!)
+        
+        // Create Equation Here
+        
+        let prevDistanceDouble = previousDateDistance! as! Double
+        let nextDistanceDouble = nextDateDistance as! Double
+        
+        self.distanceLabel.text = String(prevDistanceDouble)
+        
+        let calendar = NSCalendar.currentCalendar()
+        
+        let datecomponenets = calendar.components(NSCalendarUnit.Second, fromDate: previousDate as! NSDate, toDate: nextDate as! NSDate, options: [])
+        let seconds = datecomponenets.second
+        print("Seconds: \(seconds)")
+        
+        let halfSecondsBetweenDates = seconds * 2
+        
+        ratePerHalfSecond = (nextDistanceDouble - prevDistanceDouble) / Double(halfSecondsBetweenDates)
+        
+        print(ratePerHalfSecond)
+        
+    }
+    
+    private func convertToUTC(date: String) -> String {
+        
+        let intIndex = date.startIndex...date.startIndex.advancedBy(18)
+        
+        var text = date[intIndex]
+        text = text + ".000000 UTC"
+        
+        return text
+    }
+    
+    
+    func distanceUpdate(){
+        
+        let formattedString = "\(Double(self.distanceLabel.text!)! + ratePerHalfSecond)"
+        
+        self.distanceLabel.text = formattedString
+        
+    }
+    
     
 
     /*

@@ -49,6 +49,9 @@ class HomeScreenViewController: UIViewController {
 
         animatePlanet()
         
+
+        
+        
     }
     
     func flash() {
