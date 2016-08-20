@@ -32,7 +32,17 @@ class PlanetTrackViewController: UIViewController {
     var ratePerHalfSecond: Double!
     
     var selectedPlanet: String!
-    var selectedPlanetData: NSDictionary!
+    var selectedPlanetData: NSMutableArray!
+    var selectedPlanetDictionary: NSDictionary!
+    
+    var sunDataArray: NSMutableArray!
+    var mercuryDataArray: NSMutableArray!
+    var venusDataArray: NSMutableArray!
+    var earthDataArray: NSMutableArray!
+    var marsDataArray: NSMutableArray!
+    var jupiterDataArray: NSMutableArray!
+    var saturnDataArray: NSMutableArray!
+    var uranusDataArray: NSMutableArray!
     
     var sunToMercuryData: NSDictionary!
     var sunToVenusData: NSDictionary!
@@ -109,6 +119,13 @@ class PlanetTrackViewController: UIViewController {
         
         uranusToNeptuneData = NSDictionary();
         
+        sunDataArray = NSMutableArray(); mercuryDataArray = NSMutableArray(); venusDataArray = NSMutableArray();
+        earthDataArray = NSMutableArray(); marsDataArray = NSMutableArray(); jupiterDataArray = NSMutableArray();
+        saturnDataArray = NSMutableArray(); uranusDataArray = NSMutableArray();
+        
+        
+        selectedPlanetData = NSMutableArray()
+        selectedPlanetDictionary = NSDictionary()
         
 
     }
@@ -133,31 +150,101 @@ class PlanetTrackViewController: UIViewController {
     @IBAction func planetChosen(sender: AnyObject) {
 
         let planetNames = ["Sun","Mercury","Venus","Earth","Mars","Jupiter","Saturn","Uranus","Neptune"]
+        let sunIndices = ["Mercury","Venus","Earth","Mars","Jupiter","Saturn","Uranus","Neptune"]
+        let mercuryIndices = ["Venus","Earth","Mars","Jupiter","Saturn","Uranus","Neptune"]
+        let venusIndices = ["Earth","Mars","Jupiter","Saturn","Uranus","Neptune"]
+        let earthIndices = ["Mars","Jupiter","Saturn","Uranus","Neptune"]
+        let marsIndices = ["Jupiter","Saturn","Uranus","Neptune"]
+        let jupiterIndices = ["Saturn","Uranus","Neptune"]
+        let saturnIndices = ["Uranus","Neptune"]
+        let uranusIndices = ["Neptune"]
+        var selectedIndices = [String]()
         
         let planetSent = sender as! UIButton
         
-        // Set the selectedPlanetData var to equal the selected planets
-        
+        let planetName = planetSent.titleLabel!.text!
+
+        // Add a way to not let the user select the same planet on both sides
         
         if(self.leftSelected){
             
-            self.leftSelectedPlanet.setImage(UIImage(named: planetSent.titleLabel!.text!.lowercaseString), forState: .Normal)
-            self.leftSelectedPlanet.setTitle(planetSent.titleLabel!.text!, forState: .Normal)
+            self.leftSelectedPlanet.setImage(UIImage(named: planetName.lowercaseString), forState: .Normal)
+            self.leftSelectedPlanet.setTitle(planetName, forState: .Normal)
             self.planetsDisplayText.text = "\(leftSelectedPlanet.titleLabel!.text!) to \(rightSelectedPlanet.titleLabel!.text!)"
             
-            // Create an array containing all planetToPlanetData and use the text to access it and store it as selectedPlanetData
             
-            
-//            self.selectedPlanetData =
             
         } else {
             
-            self.rightSelectedPlanet.setTitle(planetSent.titleLabel!.text!, forState: .Normal)
-            self.rightSelectedPlanet.setImage(UIImage(named: planetSent.titleLabel!.text!.lowercaseString), forState: .Normal)
+            self.rightSelectedPlanet.setTitle(planetName, forState: .Normal)
+            self.rightSelectedPlanet.setImage(UIImage(named: planetName.lowercaseString), forState: .Normal)
             self.planetsDisplayText.text = "\(leftSelectedPlanet.titleLabel!.text!) to \(rightSelectedPlanet.titleLabel!.text!)"
 
             
         }
+        
+        // Set the selectedPlanetData var to equal the selected planets
+        
+
+        let rightPlanet = rightSelectedPlanet.titleLabel!.text!
+        let leftPlanet = leftSelectedPlanet.titleLabel!.text!
+//        print("leftPlanet: \(leftPlanet)")
+        var planetToGetDataFrom = ""
+        var planetToGetDataFor = ""
+        
+        if(planetNames.indexOf(leftPlanet) <= planetNames.indexOf(rightPlanet)){
+            planetToGetDataFrom = leftPlanet
+            planetToGetDataFor = rightPlanet
+        } else {
+            planetToGetDataFrom = rightPlanet
+            planetToGetDataFor = leftPlanet
+        }
+        
+        if(planetToGetDataFrom == planetNames[0]){
+            self.selectedPlanetData = self.sunDataArray
+            selectedIndices = sunIndices
+        } else if (planetToGetDataFrom == planetNames[1]) {
+            self.selectedPlanetData = self.mercuryDataArray
+            selectedIndices = mercuryIndices
+        } else if (planetToGetDataFrom == planetNames[2]) {
+            self.selectedPlanetData = self.venusDataArray
+            selectedIndices = venusIndices
+        } else if (planetToGetDataFrom == planetNames[3]) {
+            self.selectedPlanetData = self.earthDataArray
+            selectedIndices = earthIndices
+        } else if (planetToGetDataFrom == planetNames[4]) {
+            self.selectedPlanetData = self.marsDataArray
+            selectedIndices = marsIndices
+        } else if (planetToGetDataFrom == planetNames[5]) {
+            self.selectedPlanetData = self.jupiterDataArray
+            selectedIndices = jupiterIndices
+        } else if (planetToGetDataFrom == planetNames[6]) {
+            self.selectedPlanetData = self.saturnDataArray
+            selectedIndices = saturnIndices
+        } else if (planetToGetDataFrom == planetNames[7]) {
+            self.selectedPlanetData = self.uranusDataArray
+            selectedIndices = uranusIndices
+        }
+        
+        // Put these values into a global var and use them in the updateDistances function
+        // Example:
+//        {
+//            "2016-08-01 15:00:00.000000 UTC" = "69652828.5516644";
+//            "2016-08-19 16:02:00.000000 UTC" = "69652666.0887063";
+//            "2016-08-20 16:04:00.000000 UTC" = "69652503.5454849";
+//            "2016-08-21 18:40:00.000000 UTC" = "71234821.2182537";
+//            "2016-08-22 22:08:00.000000 UTC" = "69652340.9220006";
+//            "2016-08-23 22:10:00.000000 UTC" = "77642123.4342448";
+//            "2016-08-24 23:12:00.000000 UTC" = "79123101.5699739";
+//        }
+        
+//        print("planetToGetDataFrom: \(planetToGetDataFrom)")
+//        print("selectedPlanetData from \(planetToGetDataFrom) for \(planetToGetDataFor) \(self.selectedPlanetData[selectedIndices.indexOf(planetToGetDataFor)!])")
+        
+        self.selectedPlanetDictionary = self.selectedPlanetData[selectedIndices.indexOf(planetToGetDataFor)!] as! NSDictionary
+        print("selectedPlanetDictionary: \(self.selectedPlanetDictionary)")
+        
+        self.updatePlanetDistances()
         
     }
     
@@ -167,7 +254,7 @@ class PlanetTrackViewController: UIViewController {
         
         // Do conversions here
         
-        print(buttonName.titleLabel!.text!)
+//        print(buttonName.titleLabel!.text!)
         
         if (buttonName.titleLabel!.text! == "Miles ➪")  {
             self.unitOfMeasurementLabel.setTitle("Kilometers ➪", forState: .Normal)
@@ -288,10 +375,40 @@ class PlanetTrackViewController: UIViewController {
             
             self.uranusToNeptuneData = uranusToNeptune
             
-//            print(self.sunToMercuryData)
-            print("Sun to Neptune: \(self.sunToNeptuneData)")
-            print("Uranus to Neptune: \(self.uranusToNeptuneData)")
+            self.sunDataArray.addObject(self.sunToMercuryData); self.sunDataArray.addObject(self.sunToVenusData);
+            self.sunDataArray.addObject(self.sunToEarthData); self.sunDataArray.addObject(self.sunToMarsData);
+            self.sunDataArray.addObject(self.sunToJupiterData); self.sunDataArray.addObject(self.sunToSaturnData);
+            self.sunDataArray.addObject(self.sunToUranusData); self.sunDataArray.addObject(self.sunToNeptuneData);
             
+            self.mercuryDataArray.addObject(self.mercuryToVenusData); self.mercuryDataArray.addObject(self.mercuryToEarthData);
+            self.mercuryDataArray.addObject(self.mercuryToMarsData); self.mercuryDataArray.addObject(self.mercuryToJupiterData);
+            self.mercuryDataArray.addObject(self.mercuryToSaturnData); self.mercuryDataArray.addObject(self.mercuryToUranusData);
+            self.mercuryDataArray.addObject(self.mercuryToNeptuneData);
+            
+            self.venusDataArray.addObject(self.venusToEarthData); self.venusDataArray.addObject(self.venusToMarsData);
+            self.venusDataArray.addObject(self.venusToJupiterData); self.venusDataArray.addObject(self.venusToSaturnData);
+            self.venusDataArray.addObject(self.venusToUranusData); self.venusDataArray.addObject(self.venusToNeptuneData);
+            
+            self.earthDataArray.addObject(self.earthToMarsData); self.earthDataArray.addObject(self.earthToJupiterData);
+            self.earthDataArray.addObject(self.earthToSaturnData); self.earthDataArray.addObject(self.earthToUranusData);
+            self.earthDataArray.addObject(self.earthToNeptuneData);
+            
+            self.marsDataArray.addObject(self.marsToJupiterData); self.marsDataArray.addObject(self.marsToSaturnData);
+            self.marsDataArray.addObject(self.marsToUranusData); self.marsDataArray.addObject(self.marsToNeptuneData);
+            
+            self.jupiterDataArray.addObject(self.jupiterToSaturnData); self.jupiterDataArray.addObject(self.jupiterToUranusData);
+            self.jupiterDataArray.addObject(self.jupiterToNeptuneData);
+            
+            self.saturnDataArray.addObject(self.saturnToUranusData); self.saturnDataArray.addObject(self.saturnToNeptuneData);
+            
+            self.uranusDataArray.addObject(self.uranusToNeptuneData);
+            
+            
+//            print(self.sunToMercuryData)
+//            print("Sun to Neptune: \(self.sunToNeptuneData)")
+//            print("Uranus to Neptune: \(self.uranusToNeptuneData)")
+            
+//            print(self.uranusDataArray)
             
             
             self.updatePlanetDistances()
@@ -337,12 +454,29 @@ class PlanetTrackViewController: UIViewController {
         dateFormatter.timeZone = NSTimeZone(name: "UTC")
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss.S Z"
         
+        let selectedPlanetKeys = self.selectedPlanetDictionary.allKeys
+        let selectedPlanetValues = self.selectedPlanetDictionary.allValues
+        
+//        print("selectedPlanetKeys: \(selectedPlanetKeys)")
+//        print("selectedPlanetValues: \(selectedPlanetValues)")
+        
         let sunToMercuryKeys = self.sunToMercuryData.allKeys
         let sunToMercuryValues = self.sunToMercuryData.allValues
         
         let datesArray = NSMutableArray()
         
-        for date in sunToMercuryKeys {
+        var dictionaryToUse = NSDictionary()
+        var arrayToUse = NSArray()
+        
+        if(selectedPlanetKeys.isEmpty){
+            arrayToUse = sunToMercuryKeys
+            dictionaryToUse = sunToMercuryData
+        } else {
+            arrayToUse = selectedPlanetKeys
+            dictionaryToUse = selectedPlanetDictionary
+        }
+        
+        for date in arrayToUse {
             
             let formattedDate = dateFormatter.dateFromString(String(date))
             datesArray.addObject(formattedDate!)
@@ -381,21 +515,21 @@ class PlanetTrackViewController: UIViewController {
         let previousDate = beforeDates.lastObject!
         let nextDate = afterDates.firstObject!
         
-        print(previousDate)
-        print(nextDate)
+//        print(previousDate)
+//        print(nextDate)
         
         let convertedPrevDate = convertToUTC(String(previousDate))
         let convertedNextDate = convertToUTC(String(nextDate))
         
-        let previousDateDistance = self.sunToMercuryData.valueForKey(String(convertedPrevDate))
-        let nextDateDistance = self.sunToMercuryData.valueForKey(String(convertedNextDate))
+        let previousDateDistance = dictionaryToUse.valueForKey(String(convertedPrevDate))
+        let nextDateDistance = dictionaryToUse.valueForKey(String(convertedNextDate))
         
-        print(previousDateDistance!)
-        print(nextDateDistance!)
+//        print(previousDateDistance!)
+//        print(nextDateDistance!)
         
         // Create Equation Here
         
-        let prevDistanceDouble = previousDateDistance! as! Double
+        let prevDistanceDouble = previousDateDistance as! Double
         let nextDistanceDouble = nextDateDistance as! Double
         
         self.distanceLabel.text = String(prevDistanceDouble)
@@ -404,7 +538,7 @@ class PlanetTrackViewController: UIViewController {
         
         let datecomponenets = calendar.components(NSCalendarUnit.Second, fromDate: previousDate as! NSDate, toDate: nextDate as! NSDate, options: [])
         let seconds = datecomponenets.second
-        print("Seconds: \(seconds)")
+//        print("Seconds: \(seconds)")
         
         let halfSecondsBetweenDates = seconds * 2
         
