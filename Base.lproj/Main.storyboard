@@ -650,7 +650,7 @@
                                     <action selector="rightPlanetSelected" destination="RTX-92-3SM" eventType="touchUpInside" id="loN-Sc-yCr"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="927,846,443.13341690" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="It3-qF-NdX">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="69651689.62544164" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="It3-qF-NdX">
                                 <rect key="frame" x="20" y="20" width="465" height="76"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="67" id="Wl2-iS-2bt"/>
@@ -811,6 +811,12 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="PlanetTrack" id="Cuv-sf-CjH">
+                        <barButtonItem key="leftBarButtonItem" title="&lt; Main Menu" id="7cf-Yf-Ndw">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <segue destination="ZlV-kf-tzx" kind="presentation" id="kfW-jv-e3v"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="question" id="CO3-Wu-kFx">
                             <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>

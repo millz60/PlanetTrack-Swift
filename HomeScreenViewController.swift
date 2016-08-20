@@ -25,7 +25,7 @@ class HomeScreenViewController: UIViewController {
         planetImageView = UIImageView(frame: CGRect(x: (self.view.frame.size.width/3), y: (self.view.frame.size.height/2), width: 0, height: 0))
         planetImageView.image = UIImage(named: "earth")
         planetImageView.layer.zPosition = 9998
-        planetImageView.alpha = 0
+        planetImageView.alpha = 1
         
         self.view.addSubview(planetImageView)
         
@@ -40,9 +40,9 @@ class HomeScreenViewController: UIViewController {
         
         self.view.addSubview(targetView)
 
-        
+        flash2()
         let timer = NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: #selector(flash), userInfo: nil, repeats: true)
-        let timer2 = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(flash2), userInfo: nil, repeats: true)
+        let timer2 = NSTimer.scheduledTimerWithTimeInterval(3.5, target: self, selector: #selector(flash2), userInfo: nil, repeats: true)
 
         
         self.menuStackView.alpha = 1.0
@@ -61,14 +61,14 @@ class HomeScreenViewController: UIViewController {
         
         UIView.animateWithDuration(3.5, animations: {
             self.planetImageView.frame = CGRect(x: (self.view.frame.size.width/3), y: (self.view.frame.size.height/2), width: 0, height: 0)
-            self.planetImageView.alpha = 0
+            self.planetImageView.alpha = 0.3
 
 
             }) { (g) in
                 UIView.animateWithDuration(3.5, animations: {
                     self.planetImageView.image = UIImage(named: self.planetsArray[randInt])
                     self.planetImageView.alpha = 1.0
-                    self.planetImageView.frame = CGRect(x: (self.view.frame.size.width/3)-100, y: (self.view.frame.size.height/2)-100, width: 200, height: 200)
+                    self.planetImageView.frame = CGRect(x: (self.view.frame.size.width/3)-75, y: (self.view.frame.size.height/2)-75, width: 150, height: 150)
 
                 }) { (h) in
                     UIView.animateWithDuration(0.25, animations: {
@@ -86,15 +86,22 @@ class HomeScreenViewController: UIViewController {
 
             
         }) { (g) in
-            UIView.animateWithDuration(1.5, animations: {
+            UIView.animateWithDuration(0.25, animations: {
                 self.targetView.alpha = 0.0
                 
-            })
-            
+            }) { (h) in
+            UIView.animateWithDuration(0.25, animations: {
+                self.targetView.alpha = 1.0
+            }) { (i) in
+            UIView.animateWithDuration(1.5, animations: {
+                self.targetView.alpha = 0.0
+                })
         }
         
-    }
+            }
     
+        }
+}
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

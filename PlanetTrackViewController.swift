@@ -6,6 +6,17 @@
 //  Copyright © 2016 Matt Milner. All rights reserved.
 //
 
+
+
+// Still Left to do: 
+//  -- Functioning Unit Button
+//  -- Upload Data and make different links depending on the time of year
+//  -- Make sure the same planet can't be selected twice
+//  -- Add commas to the distance string
+//  -- Try to add the Sun to the Stackview without it messing up
+//  -- Make the number update to reflect the amount of time passed instead of restarting every time its selected
+
+
 import UIKit
 
 class PlanetTrackViewController: UIViewController {
@@ -30,6 +41,8 @@ class PlanetTrackViewController: UIViewController {
     var leftSelected = true
     
     var ratePerHalfSecond: Double!
+    var secondsPassedSincePreviousDate: Double!
+    var actualDistance: Double!
     
     var selectedPlanet: String!
     var selectedPlanetData: NSMutableArray!
@@ -98,6 +111,7 @@ class PlanetTrackViewController: UIViewController {
         self.title = "PlanetTrack"
         self.planetsDisplayText.text = "Sun to Mercury"
         
+        
         downloadPlanetData()
         
         sunToMercuryData = NSDictionary(); sunToVenusData = NSDictionary(); sunToEarthData = NSDictionary(); sunToMarsData = NSDictionary(); sunToJupiterData = NSDictionary();
@@ -164,22 +178,23 @@ class PlanetTrackViewController: UIViewController {
         
         let planetName = planetSent.titleLabel!.text!
 
-        // Add a way to not let the user select the same planet on both sides
-        
+
         if(self.leftSelected){
             
-            self.leftSelectedPlanet.setImage(UIImage(named: planetName.lowercaseString), forState: .Normal)
-            self.leftSelectedPlanet.setTitle(planetName, forState: .Normal)
-            self.planetsDisplayText.text = "\(leftSelectedPlanet.titleLabel!.text!) to \(rightSelectedPlanet.titleLabel!.text!)"
-            
+            if(!(planetName == rightSelectedPlanet.titleLabel!.text!)){
+                self.leftSelectedPlanet.setImage(UIImage(named: planetName.lowercaseString), forState: .Normal)
+                self.leftSelectedPlanet.setTitle(planetName, forState: .Normal)
+                self.planetsDisplayText.text = "\(leftSelectedPlanet.titleLabel!.text!) to \(rightSelectedPlanet.titleLabel!.text!)"
+            }
             
             
         } else {
             
-            self.rightSelectedPlanet.setTitle(planetName, forState: .Normal)
-            self.rightSelectedPlanet.setImage(UIImage(named: planetName.lowercaseString), forState: .Normal)
-            self.planetsDisplayText.text = "\(leftSelectedPlanet.titleLabel!.text!) to \(rightSelectedPlanet.titleLabel!.text!)"
-
+            if(!(planetName == leftSelectedPlanet.titleLabel!.text!)){
+                self.rightSelectedPlanet.setTitle(planetName, forState: .Normal)
+                self.rightSelectedPlanet.setImage(UIImage(named: planetName.lowercaseString), forState: .Normal)
+                self.planetsDisplayText.text = "\(leftSelectedPlanet.titleLabel!.text!) to \(rightSelectedPlanet.titleLabel!.text!)"
+            }
             
         }
         
@@ -264,7 +279,7 @@ class PlanetTrackViewController: UIViewController {
             
             //"908,702,761.99447730" <- mars to jupuiter
             
-            self.distanceLabel.text =  "908,702,761.99447730"
+            self.distanceLabel.text =  "57910000.219819"
             
         } else if(buttonName.titleLabel!.text! == "Kilometers ➪"){
             self.unitOfMeasurementLabel.setTitle("Miles ➪", forState: .Normal)
@@ -425,11 +440,12 @@ class PlanetTrackViewController: UIViewController {
     
     func downloadComplete() {
         
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(updatePlanetDistances), userInfo:nil,  repeats: true)
         NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(self.distanceUpdate), userInfo:nil,  repeats: true)
     
     }
     
-    private func updatePlanetDistances() {
+    @objc private func updatePlanetDistances() {
         
         // Steps: 
         
@@ -449,6 +465,7 @@ class PlanetTrackViewController: UIViewController {
         // Steps 1, 2, and 3
         
         let currentTime = NSDate()
+        print("currentTime: \(currentTime)")
         
         let dateFormatter = NSDateFormatter()
         dateFormatter.timeZone = NSTimeZone(name: "UTC")
@@ -538,11 +555,16 @@ class PlanetTrackViewController: UIViewController {
         
         let datecomponenets = calendar.components(NSCalendarUnit.Second, fromDate: previousDate as! NSDate, toDate: nextDate as! NSDate, options: [])
         let seconds = datecomponenets.second
-//        print("Seconds: \(seconds)")
+        print("Seconds: \(seconds)")
         
         let halfSecondsBetweenDates = seconds * 2
+        let secondsPassedSincePreviousDateComponents = calendar.components(.Second, fromDate: previousDate as! NSDate, toDate: currentTime as! NSDate, options: [])
+        self.secondsPassedSincePreviousDate = Double(secondsPassedSincePreviousDateComponents.second)
+        print("secondsPassedSincePreviousDate: \(secondsPassedSincePreviousDate)")
         
         ratePerHalfSecond = (nextDistanceDouble - prevDistanceDouble) / Double(halfSecondsBetweenDates)
+        
+        self.actualDistance = prevDistanceDouble + (ratePerHalfSecond * secondsPassedSincePreviousDate)
         
         print(ratePerHalfSecond)
         
@@ -561,9 +583,7 @@ class PlanetTrackViewController: UIViewController {
     
     func distanceUpdate(){
         
-        let formattedString = "\(Double(self.distanceLabel.text!)! + ratePerHalfSecond)"
-        
-        self.distanceLabel.text = formattedString
+        self.distanceLabel.text = "\(self.actualDistance)"
         
     }
     
