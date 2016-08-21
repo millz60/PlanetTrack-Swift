@@ -49,7 +49,7 @@
         <!--Image Gallery Table View Controller-->
         <scene sceneID="qMr-xr-hst">
             <objects>
-                <viewController id="WYU-jP-bEC" customClass="ImageGalleryTableViewController" customModule="PlanetTrack_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="WYU-jP-bEC" customClass="ImageGalleryTableViewController" customModule="PlanetTrack_temp_caseinsensitive_rename_Swift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hrR-Pt-1SC"/>
                         <viewControllerLayoutGuide type="bottom" id="abS-d8-L7Z"/>
@@ -140,7 +140,7 @@
         <!--Image Gallery Test View Controller-->
         <scene sceneID="jRF-5e-aOz">
             <objects>
-                <viewController id="mnS-i9-hhC" customClass="ImageGalleryTestViewController" customModule="PlanetTrack_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="mnS-i9-hhC" customClass="ImageGalleryTestViewController" customModule="PlanetTrack_temp_caseinsensitive_rename_Swift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8lE-JU-IEb"/>
                         <viewControllerLayoutGuide type="bottom" id="jhm-oQ-gEE"/>
@@ -401,7 +401,7 @@
         <!--Full Screen Image View Controller-->
         <scene sceneID="bHo-Ru-GAh">
             <objects>
-                <viewController id="CpO-UP-dK2" customClass="FullScreenImageViewController" customModule="PlanetTrack_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="CpO-UP-dK2" customClass="FullScreenImageViewController" customModule="PlanetTrack_temp_caseinsensitive_rename_Swift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EOA-sD-fRX"/>
                         <viewControllerLayoutGuide type="bottom" id="Gha-Ow-skW"/>
@@ -491,7 +491,7 @@
         <!--PlanetTrack-->
         <scene sceneID="Ksz-tO-v54">
             <objects>
-                <viewController id="RTX-92-3SM" customClass="PlanetTrackViewController" customModule="PlanetTrack_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="RTX-92-3SM" customClass="PlanetTrackViewController" customModule="PlanetTrack_temp_caseinsensitive_rename_Swift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="c52-sL-Cuv"/>
                         <viewControllerLayoutGuide type="bottom" id="O8e-lr-pSY"/>
@@ -506,6 +506,17 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="PHA-Iz-6Wr" userLabel="Planets Stack View">
                                 <rect key="frame" x="143" y="405" width="315" height="35"/>
                                 <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRt-9J-F3h">
+                                        <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="35" id="rNf-cr-DKw"/>
+                                            <constraint firstAttribute="height" constant="35" id="wAp-d6-2c7"/>
+                                        </constraints>
+                                        <state key="normal" title="Sun" image="sun"/>
+                                        <connections>
+                                            <action selector="planetChosen:" destination="RTX-92-3SM" eventType="touchUpInside" id="Xgu-KV-uAZ"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dq9-jr-mmb">
                                         <rect key="frame" x="40" y="0.0" width="35" height="35"/>
                                         <constraints>
@@ -672,6 +683,14 @@
                                     </mask>
                                 </variation>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Earth to Jupiter" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wg8-oY-CBM">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="47"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <size key="shadowOffset" width="1" height="1"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W8y-gE-crV">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <constraints>
@@ -697,30 +716,9 @@
                                     <action selector="changeUnits:" destination="RTX-92-3SM" eventType="touchUpInside" id="i1k-GI-thX"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRt-9J-F3h">
-                                <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="35" id="rNf-cr-DKw"/>
-                                    <constraint firstAttribute="height" constant="35" id="wAp-d6-2c7"/>
-                                </constraints>
-                                <state key="normal" title="Sun" image="sun"/>
-                                <connections>
-                                    <action selector="planetChosen:" destination="RTX-92-3SM" eventType="touchUpInside" id="Xgu-KV-uAZ"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Earth to Jupiter" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wg8-oY-CBM">
-                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="47"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <size key="shadowOffset" width="1" height="1"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="PHA-Iz-6Wr" firstAttribute="leading" secondItem="SRt-9J-F3h" secondAttribute="trailing" constant="8" symbolic="YES" id="3X7-LY-SR2"/>
-                            <constraint firstItem="SRt-9J-F3h" firstAttribute="centerY" secondItem="PHA-Iz-6Wr" secondAttribute="centerY" id="4Dk-n2-Uw3"/>
                             <constraint firstItem="PxV-N0-Wek" firstAttribute="centerY" secondItem="tu6-wA-JAu" secondAttribute="centerY" id="9Os-iv-F8f"/>
                             <constraint firstItem="tu6-wA-JAu" firstAttribute="top" secondItem="yhj-6Y-CDn" secondAttribute="top" id="AMu-kH-WQx"/>
                             <constraint firstItem="wg8-oY-CBM" firstAttribute="centerX" secondItem="tu6-wA-JAu" secondAttribute="centerX" id="BVh-PO-k1A"/>
@@ -750,9 +748,8 @@
                                 <exclude reference="79d-gP-gK9"/>
                                 <exclude reference="PxV-N0-Wek"/>
                                 <exclude reference="It3-qF-NdX"/>
-                                <exclude reference="W8y-gE-crV"/>
-                                <exclude reference="SRt-9J-F3h"/>
                                 <exclude reference="wg8-oY-CBM"/>
+                                <exclude reference="W8y-gE-crV"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="Fkp-Gs-p7p"/>
@@ -764,7 +761,6 @@
                                 <exclude reference="L5m-LM-vSM"/>
                                 <exclude reference="Prr-83-22C"/>
                                 <exclude reference="ylh-ll-ZZx"/>
-                                <exclude reference="4Dk-n2-Uw3"/>
                                 <exclude reference="BVh-PO-k1A"/>
                                 <exclude reference="tdS-AS-7cp"/>
                                 <exclude reference="tuJ-gC-0C9"/>
@@ -773,7 +769,6 @@
                                 <exclude reference="gmE-Gx-c4D"/>
                                 <exclude reference="oDt-5V-CTc"/>
                                 <exclude reference="tHK-Ac-1O4"/>
-                                <exclude reference="3X7-LY-SR2"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=regular">
@@ -783,9 +778,8 @@
                                 <include reference="79d-gP-gK9"/>
                                 <include reference="PxV-N0-Wek"/>
                                 <include reference="It3-qF-NdX"/>
-                                <include reference="W8y-gE-crV"/>
-                                <include reference="SRt-9J-F3h"/>
                                 <include reference="wg8-oY-CBM"/>
+                                <include reference="W8y-gE-crV"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="Fkp-Gs-p7p"/>
@@ -797,7 +791,6 @@
                                 <include reference="L5m-LM-vSM"/>
                                 <include reference="Prr-83-22C"/>
                                 <include reference="ylh-ll-ZZx"/>
-                                <include reference="4Dk-n2-Uw3"/>
                                 <include reference="BVh-PO-k1A"/>
                                 <include reference="tdS-AS-7cp"/>
                                 <include reference="tuJ-gC-0C9"/>
@@ -806,7 +799,6 @@
                                 <include reference="gmE-Gx-c4D"/>
                                 <include reference="oDt-5V-CTc"/>
                                 <include reference="tHK-Ac-1O4"/>
-                                <include reference="3X7-LY-SR2"/>
                             </mask>
                         </variation>
                     </view>
@@ -849,7 +841,7 @@
         <!--Planet Track Help View Controller-->
         <scene sceneID="Epb-gw-Wvq">
             <objects>
-                <viewController id="5fO-Gj-qOk" customClass="PlanetTrackHelpViewController" customModule="PlanetTrack_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="5fO-Gj-qOk" customClass="PlanetTrackHelpViewController" customModule="PlanetTrack_temp_caseinsensitive_rename_Swift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Lko-3O-eTF"/>
                         <viewControllerLayoutGuide type="bottom" id="BqX-qv-yIT"/>
@@ -958,7 +950,7 @@
         <!--Main Menu-->
         <scene sceneID="TpO-oP-mQy">
             <objects>
-                <viewController id="ZlV-kf-tzx" customClass="HomeScreenViewController" customModule="PlanetTrack_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ZlV-kf-tzx" customClass="HomeScreenViewController" customModule="PlanetTrack_temp_caseinsensitive_rename_Swift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JIW-sv-B7p"/>
                         <viewControllerLayoutGuide type="bottom" id="3lW-nd-Ilm"/>
@@ -1104,7 +1096,7 @@
         <!--Home Screen Tab Bar Controller-->
         <scene sceneID="eh6-Hj-ZAF">
             <objects>
-                <tabBarController id="d6P-Vo-B2m" customClass="HomeScreenTabBarController" customModule="PlanetTrack_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController id="d6P-Vo-B2m" customClass="HomeScreenTabBarController" customModule="PlanetTrack_temp_caseinsensitive_rename_Swift" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Vne-Jc-VhO">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1124,7 +1116,7 @@
         <!--PlanetTrack-->
         <scene sceneID="Dt8-6e-7nX">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3Km-sp-E9z" customClass="PlanetTrackNavigationController" customModule="PlanetTrack_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3Km-sp-E9z" customClass="PlanetTrackNavigationController" customModule="PlanetTrack_temp_caseinsensitive_rename_Swift" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="PlanetTrack" image="target" id="kc8-5c-HGb"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Dv2-Nc-9xg">
@@ -1143,7 +1135,7 @@
         <!--Image Gallery-->
         <scene sceneID="eST-sL-VIe">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5rA-qz-d5t" customClass="ImageGalleryNavigationControllerViewController" customModule="PlanetTrack_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5rA-qz-d5t" customClass="ImageGalleryNavigationControllerViewController" customModule="PlanetTrack_temp_caseinsensitive_rename_Swift" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Image Gallery" image="photo-7" id="Imx-4t-X7l"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="P7N-DE-7Bu">

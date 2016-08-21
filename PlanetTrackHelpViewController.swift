@@ -101,7 +101,7 @@ class PlanetTrackHelpViewController: UIViewController {
                 UIView.animateWithDuration(2.5, animations: {
                     
                     tutorialText2.alpha = 1.0
-                    fingerpointView.frame = CGRect(x: 155, y: 193, width: 60, height: 60)
+                    fingerpointView.frame = CGRect(x: 163, y: 193, width: 60, height: 60)
                     
                     
                     }, completion: { (y) in
@@ -118,7 +118,7 @@ class PlanetTrackHelpViewController: UIViewController {
                                 UIView.animateWithDuration(2.5, animations: {
                                     
                                     tutorialText4.alpha = 1.0
-                                    fingerpointView.frame = CGRect(x: 220, y: 193, width: 60, height: 60)
+                                    fingerpointView.frame = CGRect(x: 228, y: 193, width: 60, height: 60)
                                     
                                     
                                     }, completion: { (a) in

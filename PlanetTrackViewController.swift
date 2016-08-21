@@ -583,7 +583,14 @@ class PlanetTrackViewController: UIViewController {
     
     func distanceUpdate(){
         
-        self.distanceLabel.text = "\(self.actualDistance)"
+//        let formattedString = String(format: "%.02f", self.actualDistance)
+        
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = .DecimalStyle
+        formatter.maximumFractionDigits = 4;
+        let distanceText = formatter.stringFromNumber(self.actualDistance)
+        
+        self.distanceLabel.text = distanceText
         
     }
     
